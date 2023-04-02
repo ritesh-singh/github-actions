@@ -1,0 +1,17 @@
+# Workflow name, attached to the repo
+name: Worflow 1
+# Define when to trigger the worflow
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch
+on: workflow_dispatch
+jobs:
+  # Can be any name
+  my-first-job:
+    # Job runner
+    # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+    runs-on: ubuntu-latest
+    # Sequential steps, that will execute in the runner     
+    steps:
+      - name: Priting Hello
+        run: echo "Hello!"
+      - name: Printing Done
+        run: echo "Done!"
