@@ -3,7 +3,7 @@ name: Second Workflow
 on: push
 
 jobs:
-  build-kotlin-project:
+  test-kotlin-project:
     runs-on: ubuntu-latest
     steps:
       - name: Download code from repo on runner
