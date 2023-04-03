@@ -1,0 +1,14 @@
+name: Second Workflow
+
+on: push
+
+jobs:
+  build-kotlin-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download code from repo on runner
+        uses: actions/checkout@v3
+      - name: Setup gradle on runner
+        uses: gradle/gradle-build-action@v2
+      - name: Execute gradle build
+        run: ./gradlew build
