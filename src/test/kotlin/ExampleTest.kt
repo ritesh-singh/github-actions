@@ -7,7 +7,7 @@ class ExampleTest {
     fun test_addition(){
         assertEquals(
             2,
-            1+3
+            1+1
         )
     }
 }
