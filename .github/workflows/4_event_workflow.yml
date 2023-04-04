@@ -1,0 +1,18 @@
+# Event activity types and filters
+
+name: Second Workflow
+
+# activity types
+on:
+  pull_request:
+    types:
+      - opened # activity type
+  workflow_dispatch:
+jobs:
+  event-workflow-4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print event data
+        run: echo "${{ toJSON(github.event) }}"
+      - name: Print Deploy
+        run: echo "Deploy..."
