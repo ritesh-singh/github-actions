@@ -12,7 +12,16 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 7.4.2
-      - name: Run gradle
-        run: ./gradlew run
       - name: Run tests
-        run: ./gradlew build
+        run: ./gradlew test
+  run-kotlin-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download code from repo on runner
+        uses: actions/checkout@v3
+      - name: Setup gradle on runner
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.4.2
+      - name: Run gradle project
+        run: ./gradlew run
