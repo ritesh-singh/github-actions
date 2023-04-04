@@ -1,6 +1,6 @@
 # Event activity types and filters
 
-name: Second Workflow
+name: Event Workflow 4
 
 # activity types
 on:
