@@ -7,7 +7,21 @@ on:
   pull_request:
     types:
       - opened # activity type
+    branches: # filters
+      - main
+      - 'dev-*' # * -> any character other than slashes
+      - 'feat/**' # ** -> including more slashes in the branch name
+    paths-ignore:
+      - '.github/workflows/*'
   workflow_dispatch:
+  push:
+    branches: # filters
+      - main
+      - 'dev-*' # * -> any character other than slashes
+      - 'feat/**' # ** -> including more slashes in the branch name
+    # paths: # trigger based on file paths
+    paths-ignore:
+      - '.github/workflows/*'
 jobs:
   event-workflow-4:
     runs-on: ubuntu-latest
