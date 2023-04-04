@@ -15,6 +15,8 @@ jobs:
       - name: Run tests
         run: ./gradlew test
   run-kotlin-project:
+    # Avoid parallel job execution, dependent on build-kotlin-project job
+    needs: build-kotlin-project
     runs-on: ubuntu-latest
     steps:
       - name: Download code from repo on runner
