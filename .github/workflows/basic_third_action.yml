@@ -6,6 +6,6 @@ jobs:
     steps:
       # https://docs.github.com/en/actions/learn-github-actions/contexts
       # https://docs.github.com/en/actions/learn-github-actions/expressions
-      - name: Print meta-info/context passed into these jobs/steps
+#      - name: Print meta-info/context passed into these jobs/steps
       - name: Print Github context
         run: echo "${{ toJSON(github) }}"
