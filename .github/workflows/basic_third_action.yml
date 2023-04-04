@@ -7,6 +7,5 @@ jobs:
   information:
     runs-on: ubuntu-latest
     steps:
-      - name: Print meta-info/context passed into these jobs/steps
-      - name: Print Github context
+      - name: Print meta-info/context - (github context here) passed into these jobs/steps
         run: echo "${{ toJSON(github) }}"
