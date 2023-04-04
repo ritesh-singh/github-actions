@@ -1,0 +1,11 @@
+name: Information workflow
+on: workflow_dispatch
+jobs:
+  information:
+    runs-on: ubuntu-latest
+    steps:
+      # https://docs.github.com/en/actions/learn-github-actions/contexts
+      # https://docs.github.com/en/actions/learn-github-actions/expressions
+      - name: Print meta-info/context passed into these jobs/steps
+      - name: Print Github context
+        run: echo "${{ toJSON(github) }}"
