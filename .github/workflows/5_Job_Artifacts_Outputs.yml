@@ -36,5 +36,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Download Jar artifacts # https://github.com/actions/download-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: Jar
+      - name: Show contents on ubuntu runner
+        run: ls
       - name: Deploy
         run: echo "Deploying..."
