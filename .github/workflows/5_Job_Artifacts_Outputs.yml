@@ -1,0 +1,29 @@
+name: Job Artifacts and Outputs
+on:
+  push:
+    branches:
+      - main
+  jobs:
+    test:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Download code
+          uses: actions/checkout@v3
+        - name: Setup gradle on runner
+          uses: gradle/gradle-build-action@v2
+          with:
+            gradle-version: 7.4.2
+        - name: Run tests
+          run: ./gradlew test
+    build:
+      needs: test
+      runs-on: ubuntu-latest
+      steps:
+        - name: Download code
+          uses: actions/checkout@v3
+        - name: Setup gradle on runner
+          uses: gradle/gradle-build-action@v2
+          with:
+            gradle-version: 7.4.2
+        - name: Build
+          run: ./gradlew build
