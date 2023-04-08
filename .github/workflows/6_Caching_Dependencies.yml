@@ -1,0 +1,84 @@
+# https://github.com/actions/cache
+
+# Adding gradle caching for gradle action for demo
+# maybe it's not required, for gradle actions.
+# Checkout https://github.com/gradle/gradle-build-action#why-use-the-gradle-build-action
+
+# Cache actions, uses one central cache across all jobs.
+# Adding cache in job, same cache will be used by other jobs.
+
+name: Caching dependencies
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        # https://github.com/actions/setup-java#caching-gradle-dependencies
+        # Using cache actions for demo, but checkout above link, it uses cache
+        # actions under the hood
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          # tell actions/cache, use ~/.gradle as cache and reuse it
+          # https://github.com/actions/cache/blob/main/examples.md#java---gradle
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          # deps-gradle-modules-${{ hashFiles('**/someFile') }} -> hasFile can be used to
+          # determine, if cache needs to be invalidated.
+          # for gradle, none of this should be done manually.
+          # In real gradle project, checkout https://github.com/actions/setup-java#caching-gradle-dependencies
+          # give it a key to be used later
+          # Different hash key will tell cache action, it should invalidate and re-install the deps
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Setup gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.4.2
+      - name: Run tests
+        run: ./gradlew test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Setup gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.4.2
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+              ~/.gradle/caches
+              ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Setup gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.4.2
+      - name: Deploy code
+        run: echo "Deploying..."
