@@ -1,5 +1,5 @@
 # Workflow name, attached to the repo
-name: Worflow 1
+name: 1 - Worflow
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 # Define when to trigger the worflow
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch

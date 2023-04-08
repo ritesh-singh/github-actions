@@ -8,7 +8,7 @@
 # Adding cache in job, same cache will be used by other jobs.
 
 
-name: Caching dependencies
+name: 6 - Caching dependencies
 on:
   push:
     branches:
