@@ -18,6 +18,15 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs:
+      # An output is a simple value, not a file,
+      # that's produced by a job and accessed by another job
+      # not reserved, any name
+
+      # Adding expression - {{  }}
+      # Here, we want to access steps context value, defined below
+      # https://docs.github.com/en/actions/learn-github-actions/contexts
+      jar-file: ${{ steps.publish.outputs.jar-file }}
     steps:
       - name: Download code
         uses: actions/checkout@v3
@@ -27,6 +36,9 @@ jobs:
           gradle-version: 7.4.2
       - name: Build
         run: ./gradlew build
+      - name: Publish jar file name, so that other job can just use the file name, not content of file
+        id: publish # Giving step a unique id
+        run: find build/libs/*.jar -type f -execdir echo 'jar-file={}' >> $GITHUB_OUTPUT ';'
       - name: Upload artifacts # https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@v3
         with:
@@ -42,5 +54,8 @@ jobs:
           name: Jar
       - name: Show contents on ubuntu runner
         run: ls
+      - name: Output filename
+        # https://docs.github.com/en/actions/learn-github-actions/contexts#needs-context
+        run: echo "${{ needs.build.outputs.jar-file }}"
       - name: Deploy
         run: echo "Deploying..."
