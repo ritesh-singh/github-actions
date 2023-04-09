@@ -8,6 +8,10 @@
 # Adding cache in job, same cache will be used by other jobs.
 
 
+# Actions for gradle project - includes caching
+# https://tomgregory.com/build-gradle-projects-with-github-actions/
+# https://www.youtube.com/watch?v=a7T2MU2l-es
+
 name: 6 - Caching dependencies
 on:
   push:
