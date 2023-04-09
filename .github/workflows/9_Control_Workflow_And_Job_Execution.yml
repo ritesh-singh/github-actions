@@ -57,3 +57,8 @@ jobs:
       - uses: gradle/gradle-build-action@v2
       - name: Execute build
         run: ./gradlew build
+  conditional-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print job info
+        run: echo "I am conditional job"
