@@ -4,62 +4,63 @@ on:
   push:
     branches:
       - main
-  jobs:
-    test:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Get code
-          uses: actions/checkout@v3
-        - name: Validate gradle wrapper
-          uses: gradle/wrapper-validation-action@v1
-        - name: Setup JDK 11
-          uses: actions/setup-java@v3
-          with:
-            distribution: 'zulu'
-            java-version: '11'
-            cache: 'gradle'
-        - name: Get gradle
-          uses: gradle/gradle-build-action@v2
-          with:
-            gradle-version: 7.4.2
-        - name: Test
-          run: ./gradlew test --no-daemon
-    build:
-      needs: test
-      runs-on: ubuntu-latest
-      steps:
-        - name: Get code
-          uses: actions/checkout@v3
-        - name: Validate gradle wrapper
-          uses: gradle/wrapper-validation-action@v1
-        - name: Setup JDK 11
-          uses: actions/setup-java@v3
-          with:
-            distribution: 'zulu'
-            java-version: '11'
-            cache: 'gradle'
-        - name: Get gradle
-          uses: gradle/gradle-build-action@v2
-          with:
-            gradle-version: 7.4.2
-        - name: Build
-          run: ./gradlew build --no-daemon
-    deploy:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Get code
-          uses: actions/checkout@v3
-        - name: Validate gradle wrapper
-          uses: gradle/wrapper-validation-action@v1
-        - name: Setup JDK 11
-          uses: actions/setup-java@v3
-          with:
-            distribution: 'zulu'
-            java-version: '11'
-            cache: 'gradle'
-        - name: Get gradle
-          uses: gradle/gradle-build-action@v2
-          with:
-            gradle-version: 7.4.2
-        - name: Deploy
-          run: echo "Deploying..."
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Validate gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Setup JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+          cache: 'gradle'
+      - name: Get gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.4.2
+      - name: Test
+        run: ./gradlew test --no-daemon
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Validate gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Setup JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+          cache: 'gradle'
+      - name: Get gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.4.2
+      - name: Build
+        run: ./gradlew build --no-daemon
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Validate gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Setup JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+          cache: 'gradle'
+      - name: Get gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.4.2
+      - name: Deploy
+        run: echo "Deploying..."
