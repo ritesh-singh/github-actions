@@ -61,4 +61,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print job info
-        run: echo "I am conditional job"
+        run: |
+          echo "I am conditional job"
+          echo ${{ github }}
