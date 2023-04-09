@@ -24,22 +24,22 @@ jobs:
 #          cache: 'gradle'
       - name: Test
         run: ./gradlew test --no-daemon
-  build-with-java-cache:
-    needs: test-with-java-cache
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
-      - name: Setup JDK 11
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '11'
-#          cache: 'gradle'
-      - name: Build
-        run: ./gradlew build --no-daemon
+#  build-with-java-cache:
+#    needs: test-with-java-cache
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Get code
+#        uses: actions/checkout@v3
+#      - name: Validate gradle wrapper
+#        uses: gradle/wrapper-validation-action@v1
+#      - name: Setup JDK 11
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'zulu'
+#          java-version: '11'
+##          cache: 'gradle'
+#      - name: Build
+#        run: ./gradlew build --no-daemon
 #  build-with-build-action-cache:
 #    needs: build-with-java-cache
 #    runs-on: ubuntu-latest
