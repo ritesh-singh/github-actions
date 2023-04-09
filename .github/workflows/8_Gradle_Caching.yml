@@ -25,7 +25,7 @@ jobs:
       - name: Test
         run: ./gradlew test --no-daemon
   build-with-java-cache:
-    needs: test
+    needs: test-with-java-cache
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -41,7 +41,7 @@ jobs:
       - name: Build
         run: ./gradlew build --no-daemon
   build-with-build-action-cache:
-    needs: build
+    needs: build-with-java-cache
     runs-on: ubuntu-latest
     steps:
       - name: Get code
