@@ -9,7 +9,8 @@ name: 8 - Gradle caching
 on:
   push:
     branches:
-      - main
+#      - main
+      - dev
 jobs:
   build-without-cache:
     runs-on: ubuntu-latest
