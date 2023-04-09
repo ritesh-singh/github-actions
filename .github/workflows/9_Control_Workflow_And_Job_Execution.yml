@@ -58,6 +58,7 @@ jobs:
       - name: Execute build
         run: ./gradlew build
   conditional-job:
+    needs: test-job
     runs-on: ubuntu-latest
     steps:
       - name: Print job info
