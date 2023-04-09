@@ -1,11 +1,15 @@
-name: 8 - Controlling job execution and workflow
+name: 8 - Gradle caching
+
+# Actions for gradle project - includes caching
+# https://tomgregory.com/build-gradle-projects-with-github-actions/
+# https://www.youtube.com/watch?v=a7T2MU2l-es
 
 on:
   push:
     branches:
       - main
 jobs:
-  test:
+  test-with-java-cache:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -18,13 +22,9 @@ jobs:
           distribution: zulu
           java-version: 11
           cache: gradle
-      - name: Get gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 7.4.2
       - name: Test
         run: ./gradlew test --no-daemon
-  build:
+  build-with-java-cache:
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -38,29 +38,20 @@ jobs:
           distribution: zulu
           java-version: 11
           cache: gradle
-      - name: Get gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 7.4.2
       - name: Build
         run: ./gradlew build --no-daemon
-  deploy:
+  build-with-build-action-cache:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
       - name: Setup JDK 11
         uses: actions/setup-java@v3
         with:
           distribution: zulu
           java-version: 11
-          cache: gradle
-      - name: Get gradle
+      - name: Build with gradle build action
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 7.4.2
-      - name: Deploy
-        run: echo "Deploying..."
+          arguments: build
