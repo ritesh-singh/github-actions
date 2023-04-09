@@ -8,6 +8,15 @@
 #  - Running jobs with a matrix
 #  - Re-using workflows
 
+# Controlling execution via if
+#   Special condition function
+#     - failure() -> returns true when prev step or job failed
+#     - success() -> returns true when none of the prev steps have failed
+#     - always() -> always returns true, causes the step to always execute, even when cancelled
+#     - cancelled() -> returns true if the workflow has been cancelled
+#   These functions can be used in conditions to ensure that certain steps only run,
+#   when other step fail, succeeded, always run or cancelled.
+
 name: 9 - Controlling workflow and job execution
 on:
   push:
@@ -25,8 +34,15 @@ jobs:
           java-version: 11
       - uses: gradle/gradle-build-action@v2
       - name: Run tests
+        id: test_id
         run: ./gradlew test
+        # Run below step, only if above step fails
       - name: Upload test report
+        # for if field, no need to use expression syntax
+        # failure() should be used to override default git-hub action behavior
+        # By adding failure(), github action knows, below step still needs to be evaluated,
+        # if we have failing steps or jobs before that step.
+        if: failure() && steps.test_id.outcome == 'failure'
         run: echo "Uploading test report"
   build-job:
     needs: test-job
