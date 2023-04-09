@@ -16,7 +16,8 @@ name: 6 - Caching dependencies
 on:
   push:
     branches:
-      - main
+#      - main
+      - dev
 jobs:
   test:
     runs-on: ubuntu-latest

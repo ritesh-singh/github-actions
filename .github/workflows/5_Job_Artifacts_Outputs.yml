@@ -2,7 +2,8 @@ name: 5 - Job Artifacts and Outputs
 on:
   push:
     branches:
-      - main
+#      - main
+      - dev
 jobs:
   test:
     runs-on: ubuntu-latest
