@@ -36,7 +36,7 @@ jobs:
         # eg:- I want to run all combinations except running 6.9.2 on windows-latest
         # below combination will be excluded from the generated matrix
         exclude:
-          - gradle-versions: 6.9.2
+          - gradle_versions: 6.9.2
             os: windows-latest
     runs-on: ${{ matrix.os }}
     steps:
