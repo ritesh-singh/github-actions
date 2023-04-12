@@ -66,3 +66,8 @@ jobs:
         run: |
           echo "I am conditional job"
           echo ${{ toJSON(github) }}
+  continue-on-error-job:
+    # Example showing conditional steps via continue-on-error
+    runs-on: ubuntu-latest
+    steps:
+      name: Printing from $GITHUB_JOB
