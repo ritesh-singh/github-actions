@@ -70,4 +70,4 @@ jobs:
     # Example showing conditional steps via continue-on-error
     runs-on: ubuntu-latest
     steps:
-      - name: Printing fro
+      - run: echo "From $GITHUB_JOB"
