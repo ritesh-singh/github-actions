@@ -9,3 +9,5 @@ jobs:
     # Provide input values for the re-usable workflow
     with:
       artifact-name: Jar
+#    secrets:
+#      some-secret: ${{ secrets.some-secret }}

@@ -13,12 +13,17 @@ on:
         required: true
         default: Jar # Give default value, in case required is set to false
         type: string
+#    secrets: # secrets can be also expected instead of inputs
+#      some-secret:
+#        required: true
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Print artifact name
         run: echo ${{ inputs.artifact-name }}
+      - name: Print secret name
+        run: echo ${{ secrets.secret-name }}
       - name: Get Code
         uses: actions/download-artifact@v3
         with:
