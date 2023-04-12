@@ -21,7 +21,8 @@ name: 9 - Controlling workflow and job execution
 on:
   push:
     branches:
-      - main
+#      - main
+      - dev
 jobs:
   test-job:
     runs-on: ubuntu-latest
