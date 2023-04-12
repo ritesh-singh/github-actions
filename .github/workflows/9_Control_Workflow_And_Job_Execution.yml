@@ -75,6 +75,8 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Test code
         run: ./gradlew test
+        # Continue executing job, even if this step fails
+        continue-on-error: true
       - name: Step after testing
         run: echo "Test step completed"
       - run: echo "Done"
