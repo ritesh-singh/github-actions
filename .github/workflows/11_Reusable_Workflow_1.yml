@@ -10,7 +10,7 @@ on:
       # not reserved, can be anything
       artifact-name:
         description: The name of the deployable artifact files
-        required: true
+        required: false
         default: Jar
         type: string
 jobs:
