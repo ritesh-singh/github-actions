@@ -3,8 +3,8 @@
 # or on different node versions or gradle versions, etc.
 # You do that by adding the strategy field to the job.
 #
-#
-#
+# By default, when one job fails - all other combinations are skipped.
+#   - To avoid this default behavior add continue-on-error: true on job level.
 #
 #
 #
@@ -16,6 +16,7 @@ on:
       - main
 jobs:
   build: # this job will run for all the combinations of gradle_versions and os array (12 combinations in this case)
+    continue-on-error: true
     strategy:
       # runs this build job multiple times once per value in the {{ matrix.os }}
       # all those jobs will run in parallel
