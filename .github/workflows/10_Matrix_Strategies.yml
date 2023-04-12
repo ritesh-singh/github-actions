@@ -15,17 +15,21 @@ on:
     branches:
       - main
 jobs:
-  build:
+  build: # this job will run for all the combinations of gradle_versions and os array (12 combinations in this case)
     strategy:
+      # runs this build job multiple times once per value in the {{ matrix.os }}
+      # all those jobs will run in parallel
       matrix:
         # can be any name
-        gradle-versions: [ 7.4.2, 7.4.1, 7.4, 6.9.2 ]
+        gradle_versions: [ 7.4.2, 7.4.1, 7.4, 6.9.2 ]
         os: [ ubuntu-latest, windows-latest, macos-latest ]
-    runs-on: ${{ matrix.os }} # runs this job multiple times once per value - each os defined in the array.
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Get code
         uses: actions/checkout@v3
       - name: Install gradle
         uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: ${{ matrix.gradle_versions }}
       - name: Execute build
         run: ./gradlew build
