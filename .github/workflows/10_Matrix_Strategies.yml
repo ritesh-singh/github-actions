@@ -6,8 +6,11 @@
 # By default, when one job fails - all other combinations are skipped.
 #   - To avoid this default behavior add continue-on-error: true on job level.
 #
-#
-#
+# Including/Excluding values in matrix
+#   - include key
+#       - allows to add list of keys to be included
+#   - exclude key
+#       - allows to exclude some combinations
 
 name: 10 - Matrix Strategies
 on:
@@ -23,7 +26,18 @@ jobs:
       matrix:
         # can be any name
         gradle_versions: [ 7.4.2, 7.4.1, 7.4, 6.9.2 ]
+        # can be any name
         os: [ ubuntu-latest, windows-latest, macos-latest ]
+        # it's a reserved key
+        include:
+          - gradle_versions: 7.4.2
+            os: ubuntu-latest
+            new_key_can_be_added: 20
+        # eg:- I want to run all combinations except running 6.9.2 on windows-latest
+        # below combination will be excluded from the generated matrix
+        exclude:
+          - gradle-versions: 6.9.2
+            os: windows-latest
     runs-on: ${{ matrix.os }}
     steps:
       - name: Get code
