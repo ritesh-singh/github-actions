@@ -3,6 +3,8 @@
 # Eg:- Using one workflow inside job of other workflow
 #
 
+# Think re-usable components as a function - taking input and returning output
+
 name: 11 - Reusable workflow
 on:
   workflow_call: # can be called from other workflow
@@ -13,11 +15,19 @@ on:
         required: true
         default: Jar # Give default value, in case required is set to false
         type: string
+    outputs: # Passing something back to the calling workflow
+         # any name
+         result:
+           description: The result of deployment
+           # this value is taken from the steps of one of these jobs
+           value: ${{ jobs.deploy.outputs.outcome }}
 #    secrets: # secrets can be also expected instead of inputs
 #      some-secret:
 #        required: true
 jobs:
   deploy:
+    outputs:
+      outcome: ${{ steps.set-result.outputs.step-result }}
     runs-on: ubuntu-latest
     steps:
       - name: Print artifact name
@@ -32,3 +42,6 @@ jobs:
         run: ls
       - name: Output info
         run: echo "Deploying..."
+      - name: Set result output
+        id: set-result
+        run: echo "step-result=success" >> $GITHUB_OUTPUT
