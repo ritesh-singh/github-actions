@@ -6,3 +6,6 @@ on:
 jobs:
   deploy:
     uses: ./.github/workflows/11_Reusable_Workflow_1.yml
+    # Provide input values for the re-usable workflow
+    with:
+      artifact-name: Jar
