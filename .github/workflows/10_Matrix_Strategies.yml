@@ -25,18 +25,18 @@ jobs:
       # all those jobs will run in parallel
       matrix:
         # can be any name
-        gradle_versions: [ '7.4.2', '7.4.1', '7.4', '6.9.2' ]
+        gradle_versions: [ 7.4.2, 7.4.1, 7.4, 6.9.2 ]
         # can be any name
         os: [ ubuntu-latest, windows-latest, macos-latest ]
         # it's a reserved key
         include:
-          - gradle_versions: '7.4.2'
+          - gradle_versions: 6.9.1
             os: ubuntu-latest
             new_key_can_be_added: 20
         # eg:- I want to run all combinations except running 6.9.2 on windows-latest
         # below combination will be excluded from the generated matrix
         exclude:
-          - gradle_versions: '6.9.2'
+          - gradle_versions: 6.9.2
             os: windows-latest
     runs-on: ${{ matrix.os }}
     steps:
