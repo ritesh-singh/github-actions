@@ -1,0 +1,9 @@
+name: 12 - Using re-usable workflow
+on:
+  push:
+    branches:
+      - main
+jobs:
+  steps:
+    - name: Reusing workflow
+      uses: ./.github/workflows/11_Reusable_Workflow_1.yml

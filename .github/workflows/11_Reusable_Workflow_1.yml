@@ -1,0 +1,14 @@
+# Re-using jobs/steps in multiple workflows.
+#
+# Eg:- Using one workflow inside job of other workflow
+#
+
+name: 11 - Reusable workflow
+# can be called from other workflow
+on: workflow_call
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output info
+        run: echo "Deploying..."
