@@ -1,3 +1,14 @@
+# https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
+# Matrix - you can run the same job with different configurations, on different runners
+# or on different node versions or gradle versions, etc.
+# You do that by adding the strategy field to the job.
+#
+#
+#
+#
+#
+#
+
 name: 10 - Matrix Strategies
 on:
   push:
@@ -5,7 +16,12 @@ on:
       - main
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # can be any name
+        gradle-versions: [ 7.4.2, 7.4.1, 7.4, 6.9.2 ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: ${{ matrix.os }} # runs this job multiple times once per value - each os defined in the array.
     steps:
       - name: Get code
         uses: actions/checkout@v3
