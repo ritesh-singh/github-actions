@@ -5,6 +5,4 @@ on:
       - main
 jobs:
   deploy:
-    steps:
-      - name: Reusing workflow
-        uses: ./.github/workflows/11_Reusable_Workflow_1.yml
+    uses: ./.github/workflows/11_Reusable_Workflow_1.yml
