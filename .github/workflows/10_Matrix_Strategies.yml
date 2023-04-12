@@ -16,7 +16,8 @@ name: 10 - Matrix Strategies
 on:
   push:
     branches:
-      - main
+#      - main
+      - dev
 jobs:
   build: # this job will run for all the combinations of gradle_versions and os array (12 combinations in this case)
     continue-on-error: true
