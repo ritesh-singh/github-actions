@@ -23,5 +23,7 @@ jobs:
           name: $ {{ inputs.artifact-name }}
       - name: List files
         run: ls
+      - name: Print artifact name
+        run: echo ${{ inputs.artifact-name }}
       - name: Output info
         run: echo "Deploying..."
